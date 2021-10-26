@@ -157,3 +157,45 @@ if (x2 % 2 === 0){
 }
 console.groupEnd();
 
+console.group("7번 문제");
+// 7의 팩토리얼은 얼마인지 출력하는 프로그램을 for문으로 작성하시오.
+let x3 = 1;
+
+for (let i = 1; i < 8; i++) {
+  x3 *= i;
+}
+
+console.log(x3);
+// expected output: "012345678"
+
+console.groupEnd();
+
+console.group("8번 문제");
+// 구구단 6단의 결과값에 대한 총 합은 얼마인지 출력하는 프로그램을 for문으로 작성하시오.
+let x4 = 0;
+for (let i = 1; i < 10; i++){
+    x4 += 6 * i;
+}
+console.log("구구단 6단의 총합은 %d입니다.",x4)
+
+console.groupEnd();
+
+console.group("9번 문제");
+// 구구단 8단의 결과값을 모두 더한 값이 홀수인지 짝수인지를 판별하는 프로그램을 작성하시오.
+let x5 = 0;
+for (let i = 0; i < 10; i++){
+    x5 += 8 * i
+}
+console.log("구구단 8단의 총합은 %d입니다.",x5)
+switch (x5 % 2 === 0){
+    case true:
+        console.log("짝수입니다.");
+        break;
+    default: 
+        console.log("홀수입니다.");
+}
+// 삼항 연산자
+const z4 = x5 % 2 === 0 ? "짝수입니다.":"홀수입니다."
+console.log(z4);
+console.groupEnd();
+
