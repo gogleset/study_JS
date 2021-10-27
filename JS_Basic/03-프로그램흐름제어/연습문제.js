@@ -106,7 +106,7 @@ const 수학 = "B";
 //         break;
 // }
 
-if (수학 || "A" || "B" || "C"){
+if (수학 ===  "A" || "B" || "C"){
     console.log("이 과목을 Pass 했습니다.");
 } else{
     console.log("이 과목을 Pass하지 못했습니다.");
