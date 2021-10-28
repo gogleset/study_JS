@@ -3,7 +3,7 @@ let myArr;
 
 // 배열의 할당
 myArr = [1,2,3.14,true,false,"hello","world"];
-console.log(myArr1);
+console.log(myArr);
 
 // 선언과 할당의 통합
 let myArr2 = [1,2,3.14,true,false,"hello","world"];
