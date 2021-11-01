@@ -239,9 +239,14 @@ let myData = require("/Users/choijin/Desktop/covid19.json");
 // confirmed_prev는 어제까지의 확진자를 의미합니다.
 // console.log(myData.state[1])
 
+
+
 for (let i = 0; i < myData.state.length; i++){
-    console.log(myData.state[i].region);
-    console.log(myData.state[i].confirmed - myData.state[i].confirmed_prev);
+    console.log("%s %s명의 신규 확진자 발생, 추가 사망자 %s", 
+    myData.state[i].region,//지역
+    (myData.state[i].confirmed - myData.state[i].confirmed_prev),//신규확진자 발생,
+    (myData.state[i].death-myData.state[i].death_prev)//추가 사망자
+    );
 }
 
 
