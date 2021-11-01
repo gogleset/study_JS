@@ -1,4 +1,7 @@
 "use strict";
+let myData = require("/Users/choijin/Desktop/covid19.json");
+
+
 // ## 문제1.
 
 // 다음은 10명의 학생들에 대한 혈액형 데이터이다.
@@ -213,23 +216,14 @@
 //     for(let key)
 // }
 
-let covid19 = [
-    {'0125': 426}, {'0126': 343}, {'0127': 547}, {'0128': 490}, 
-    {'0129': 460}, {'0130': 443}, {'0131': 338}, {'0201': 299}
-]
+// let covid19 = [
+//     {'0125': 426}, {'0126': 343}, {'0127': 547}, {'0128': 490}, 
+//     {'0129': 460}, {'0130': 443}, {'0131': 338}, {'0201': 299}
+// ];
 
-for(let i = 0; i < covid19.length-1; i++){
 
-    for(let j = i+1; j<covid19.length; j++){
 
-        if(covid19[i][(Object.keys(covid19[i]))] > covid19[j][(Object.keys(covid19[j]))]){
-            const tmp = covid19[i];
-            covid19[i] = covid19[j]
-            covid19[j]= tmp;
-        }
-    }
-}
-console.log(covid19);
+
 
 
 
@@ -237,3 +231,18 @@ console.log(covid19);
 // ```
 // [{'0201': 299}, {'0131': 338}, {'0126': 343}, {'0125': 426}, {'0130': 443}, {'0129': 460}, {'0128': 490}, {'0127': 547}]
 // ```
+
+
+
+// 이를 토대로 하여 각 지역별 오늘 발생한 확진자 수를 출력하시오.
+// confirmed는 코로나 발생일로부터 현재까지의 누적 확진자를 의미하고,
+// confirmed_prev는 어제까지의 확진자를 의미합니다.
+// console.log(myData.state[1])
+
+for (let i = 0; i < myData.state.length; i++){
+    console.log(myData.state[i].region);
+    console.log(myData.state[i].confirmed - myData.state[i].confirmed_prev);
+}
+
+
+
