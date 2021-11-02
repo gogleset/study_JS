@@ -86,6 +86,8 @@ console.log(copy);
 const copy2 = {};
 
 // addr을 copy2에 깊은 복사를 수행하는 JS 내장 기능 
+// 1. 복사될 copy2가 비어있는 json일 경우 복사
+// 2. copy2가 비어있지 않으면 누적이 된다.
 Object.assign(copy2, addr);
 console.log(copy2);
 

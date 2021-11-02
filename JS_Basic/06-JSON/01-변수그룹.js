@@ -31,3 +31,7 @@ console.groupEnd();
 const keyName = "phoneno";
 console.log(student[keyName]);
 
+// json의 key를 배열로 반환하는 명령
+const keys = Object.getOwnPropertyNames(student);
+console.log(keys);
+
