@@ -13,6 +13,7 @@ function myCallback1(a,b){
 something(3,10, myCallback1);
 
 // 콜백함수 유형 2. 익명함수 사용
+// 호출하는 도중에 함수 만들기
 something(10,15, function(a,b){
     for(let i = a; i < b; i++){
         console.log("5 x" +i+ "="+(i*5));
