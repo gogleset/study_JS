@@ -13,6 +13,7 @@ class Protoss {
     move(position){
         console.log(this._name + "(이)가" + position + "까지 이동합니다.");
     }
+    
     attack(target){
         console.log(this._name + "(이)가" + target + "을(를)공격합니다. 데미지:" + this._dps);
     }
@@ -41,6 +42,7 @@ z1.sword("본진");
 const z2 = new Zealot("질럿2", 300, 25);
 z2.move("멀티");
 z2.sword("멀티");
+
 
 const d1 = new Dragoon("드라군1", 250,40);
 d1.move("본진");

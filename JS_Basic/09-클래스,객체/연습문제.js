@@ -18,11 +18,15 @@ const grade = [
     ["영희",72,95,84],
     ["민혁",80,86,98]
 ];
+
+
 for (const item of grade){
     const s = new Student(item[1],item[2],item[3]);
     console.log("%s의 총점은 %d점이고 평균은 %d점 입니다.", 
     item[0], s.sum(), s.avg().toFixed(0))
 }
+
+
 // // //// /////////////
 
 class Rectangle {
@@ -32,7 +36,7 @@ class Rectangle {
     }
     // 
 
-    get width(){ 
+    get width(){
         return this._width; 
     }
     // set으로 받고 get으로 뱉어줌
@@ -40,7 +44,7 @@ class Rectangle {
         this._width = value;
     }
 
-    get height(){ 
+    get height(){
         return this._height; 
     }
     // set으로 받고 get으로 뱉어줌
@@ -60,6 +64,7 @@ class Rectangle {
 const rect = new Rectangle();
 rect.width = 10;
 rect.height = 5;
+
 
 console.log("둘레의 길이는 %d이고 넓이가 %d입니다.", rect.getAround(), rect.getArea());
 
