@@ -42,23 +42,23 @@
 
 // 1번 문제를 응용하여 같은 파라미터를 받았을 때 별을 역으로 출력하는 `printRevStar(max, current=1)` 을 구현하시오.
 
-// function printStar(max, current = 1) {
-//   if (max < current) {
-//     return;
-//   } else {
-//     // 맥스의 갯수만큼 별 출력
-//     let str = "";
+function printStar(max, current = 1) {
+  if (max < current) {
+    return;
+  } else {
+    // 맥스의 갯수만큼 별 출력
+    let str = "";
 
-//     for (let i = 0; i < max - current + 1; i++) {
-//       str += "*";
-//     }
-//     console.log(str);
-//     printStar(max, current + 1);
-//     // 처음부터 맥스의 별을 출력해서 한단계씩 내려와야함
-//   }
-// }
+    for (let i = 0; i < max - current + 1; i++) {
+      str += "*";
+    }
+    console.log(str);
+    printStar(max, current + 1);
+    // 처음부터 맥스의 별을 출력해서 한단계씩 내려와야함
+  }
+}
 
-// printStar(3);
+printStar(7);
 
 // // #### 출력결과
 
@@ -75,38 +75,38 @@
 
 // // 1부터 파라미터로 전달된 숫자까지 반복하면서 박수를 칠 조건이 충족되면 3,6,9 게임 규칙에 따라 박수를 의미하는 "짝"을 출력하고 그렇지 않은 경우에는 숫자를 출력하고, 박수를 총 몇번 쳤는지를 리턴하는 함수 `myGame(n)`을 작성하시오.
 
-function myGame(n) {
-  let count = 0;
-  for (let i = 1; i <= n; i++) {
-    // 현재 숫자를 문자열로 변환함
-    // -> 문자열은 그 자체가 배열이므로 각 자리의 숫자를 의미하는 글자를 원소로 갖는 배열이 된다고 볼 수 있다.
-    let str = i + "";
-    let say = "";
-    let clap = 0;
+// function myGame(n) {
+//   let count = 0;
+//   for (let i = 1; i <= n; i++) {
+//     // 현재 숫자를 문자열로 변환함
+//     // -> 문자열은 그 자체가 배열이므로 각 자리의 숫자를 의미하는 글자를 원소로 갖는 배열이 된다고 볼 수 있다.
+//     let str = i + "";
+//     let say = "";
+//     let clap = 0;
 
-    // ["3", "6"] --> t는 "3", "6" 이 순차적으로 대입됨.
-    for (let t of str) {
-      if (t == "3" || t == "6" || t == "9") {
-        str += "짝";
-        clap++;
-      }
-    }
+//     // ["3", "6"] --> t는 "3", "6" 이 순차적으로 대입됨.
+//     for (let t of str) {
+//       if (t == "3" || t == "6" || t == "9") {
+//         str += "짝";
+//         clap++;
+//       }
+//     }
 
-    // 덧붙여진 글자가 없다면?
-    if (clap == 0) {
-      say = i;
-    } else {
-      say += "(" + i + ") --> " + clap + "번";
-      count += clap;
-    }
+//     // 덧붙여진 글자가 없다면?
+//     if (clap == 0) {
+//       say = i;
+//     } else {
+//       say += "(" + i + ") --> " + clap + "번";
+//       count += clap;
+//     }
 
-    console.log(str);
-  }
-  console.log();
-  console.log("박수를 총 %d번 쳤습니다.", count);
-}
+//     console.log(str);
+//   }
+//   console.log();
+//   console.log("박수를 총 %d번 쳤습니다.", count);
+// }
 
-myGame(33);
+// myGame(33);
 
 // #### 출력예시
 
