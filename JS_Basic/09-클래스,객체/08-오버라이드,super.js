@@ -22,7 +22,7 @@ class Tank extends Terran{
     // 테란의 기능을 상속받는 자식 클래스
     attack(target){
         super.attack(target);
-        console.log(">>> 탱크 포격")
+        console.log(">>> 탱크 포격");
     }
     // 기능의 확장
 }

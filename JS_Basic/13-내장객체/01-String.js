@@ -8,6 +8,7 @@ console.log(str1);
 const str2 = new String("Hello Javascript");
 console.log(str2);
 
+
 // 문자열 변수는 그 자체가 String 클래스의 객체이다.
 // 모든 문자열 변수는 String 클래스가 제공하는 프로퍼티와 메서드를 포함한다.
 //  --> 문자열 변수 안에서 특정 정보를 추출하거나 변환하는 기능
@@ -34,7 +35,7 @@ console.log("`f`가 처음 나타나는 위치 : " + p1);
 console.log("`z`가 처음 나타나는 위치 : " + msg.indexOf("z"));
 
 // 단어나 문장으로 검색할 경우 일차하는 내용이 시작되는 첫 글자의 위치를 반환
-console.log("`shorts`가 처음 나타나는 위치 :" + msg.indexOf("shorts"));
+console.log("`shorts`가 처음 나타나는 위치 : " + msg.indexOf("shorts"));
 
 // indexof에 파라미터가 두개인 경우,
 // 두 번째 값은 첫번째 파라미터의 글자를 찾기 시작하는 위치를 나타낸다.
