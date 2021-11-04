@@ -23,7 +23,7 @@ const grade = [
 for (const item of grade){
     const s = new Student(item[1],item[2],item[3]);
     console.log("%s의 총점은 %d점이고 평균은 %d점 입니다.", 
-    item[0], s.sum(), s.avg().toFixed(0))
+    item[0], s.sum(), s.avg().toFixed(0));
 }
 
 
