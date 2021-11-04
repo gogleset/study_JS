@@ -9,6 +9,7 @@ let centerPoint = {
 // 다른 Json을 포함하는 Json
 let circle1 = {
     center: centerPoint, //중심의 좌표
+    // 키 안에 다른 제이슨 추가 
     radius: 5.10 //반지름
 }
 

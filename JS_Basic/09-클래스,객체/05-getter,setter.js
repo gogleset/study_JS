@@ -4,7 +4,7 @@ class UserClass {
         this._email = null;
     }
 
-    set username(value){
+    set userName(value){
         if(!value){
             console.log("userName을 입력하세요")
             return;

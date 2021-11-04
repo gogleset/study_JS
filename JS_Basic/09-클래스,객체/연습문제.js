@@ -54,16 +54,16 @@ class Rectangle {
     
     // 실제로 동작하는 부분
     getAround(){
-        return this._width * 2 + this.height * 2;
+        return this._width * 2 + this._height * 2;
     }
     getArea(){
-        return this._width *  this.height; 
+        return this._width *  this._height; 
     }
 }
 
 const rect = new Rectangle();
 rect.width = 10;
-rect.height = 5;
+rect.height = 2;
 
 
 console.log("둘레의 길이는 %d이고 넓이가 %d입니다.", rect.getAround(), rect.getArea());
