@@ -13,15 +13,15 @@
 
 let count1 = 0;
 
-const timeId1 = setInterval(() =>{
+const timeId = setInterval(() =>{
     count1++;
     console.log("[타이머]" + count1 + "번째 자동실행");
 
     if (count1 == 5){
         console.log("타이머1 종료")
-        clearInterval(timeId1);
+        clearInterval(timeId); // 타이머 종료를 나타내는 구문(따로 구현해주어야한다.)
     }
-},3000);
+},3000); //3초마다 실행
 
 console.log("타이머1 시작");
 
@@ -35,7 +35,8 @@ const timeId2 = setInterval(() =>{
         console.log("타이머 종료");
         clearInterval(timeId2);
     }
-}, 1000);
+}, 1000); //1초마다 실행
 
 console.log("타이머2 시작")
 
+// setTimeout과 setInterval의 (int)차이는 setTimeout은 몇초 "후"에 실행, setInterval은 몇초"마다" 실행의 차이가 있다.
