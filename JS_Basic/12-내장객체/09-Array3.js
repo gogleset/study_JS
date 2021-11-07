@@ -9,15 +9,18 @@ const arr = [10,20,30,40,50];
 배열에 대한 반복 처리(1) - 배열의 원소 스캔하기
 */
 
-for(let i = 0; i < arr.length; i++) {
-    if(i == 3){
-        console.log("~~~반복중단!!!");
-        break;
-    }
-    console.log("%d번째 원소 ==> %d", i, arr[i]);
-}
+// for(let i = 0; i < arr.length; i++) {
+//     if(i == 3){
+//         console.log("~~~반복중단!!!");
+//         break;
+//     }
+//     console.log("%d번째 원소 ==> %d", i, arr[i]);
+// }
 
-console.log("-----");
+// console.log("-----");
+
+
+
 
 // 콜백함수에게 배열의 값과 인덱스를 전달한다. 
 // 콜백함수는 원소의 수 만큼 순차적으로 실행된다.

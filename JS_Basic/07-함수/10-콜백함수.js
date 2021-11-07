@@ -11,5 +11,6 @@ function plus(a,b){
 function minus(a,b){
     return a - b;   
 }
+
 something(100,50,plus);
 something(100,50,minus);

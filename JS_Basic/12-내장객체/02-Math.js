@@ -28,7 +28,7 @@ console.log("절대값: " + Math.abs(num2));
 // 6) 0-1 범위의 난수 발생
 console.log("난수:" + Math.random());
 
-// 두 수 사이의 난수를 리턴하는 함수
+// 두 수 사이의 난수를 리턴하는 함수(로또)
 function random(n1, n2){
     return parseInt(Math.random() * (n2 - n1 + 1)) + n1;
 }
