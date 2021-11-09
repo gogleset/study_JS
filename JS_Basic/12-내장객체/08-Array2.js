@@ -81,16 +81,16 @@ console.log(arr5);
 // sort 함수도 정렬 조건을 콜백함수로 처리한다
 arr5.sort(function(a,b){
     // 정렬을 위해 비교되는 원소값들이 파라미터로 전달된다.
-    // console.log(a);
-    // console.log(b);
+    
 
     // 리턴값이 양수인 경우: a가 b보다 크다
     // 리턴값이 음수인 경우: b가 a보다 크다
-    if (a > b){
-        return 1;
-    } else {
-        return -1;
-    }
+    // if (a > b){
+    //     return 1;
+    // } else {
+    //     return -1;
+    // }
+    return a-b;
 });
 
 console.log(arr5);
