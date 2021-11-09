@@ -12,20 +12,29 @@ console.log('배열 탐색 시작');
 
 // 먼저, try{...}안의 코드가 실행된다.
 // 에러가 없다면, try 안의 마지막 줄까지 실행되고, catch 블록은 건너뛴다.
-
 // 에러가 있다면, try 안의 코드 실행이 중단되고, cateh(err) 블록으로 제어 프름이 넘어간다.
 // 변수 err(아무 이름이나 사용가능)는 무슨 일이 일어났는지에 대한 설명이 담긴 에러 객체를 포함한다.
 try {
     for(let i = 0; i < 10; i++){
         console.log(data[i].toFixed(2));
     }
+    //만약 err가 없다면 실행
 } catch (err){
     console.error('에러발생(1)');
     console.error(err.name);
     console.error(err.message);
     // 에러정보 전체
     // console.error(err);
+} finally {
+    console.log("배열 탐색이 종료되었습니다.");
+    // 에러에 발생여부에 상관없이 무조건 맨 마지막 실행되는 블록
+    // 필요하지 않은 경우 생략할 수 있다.
 }
 
+
+
 // try-catch로 발생할 에러에 대비하면 에러가 발생하더라도 프로그램이 중단되지 않는다.
+// try-catch는 프로그램 성능에 영향을 미친다.(남용하면 안됨), Ajax,파일처리에서 많이 사용
+
+
 console.log('배열탐색 종료');
