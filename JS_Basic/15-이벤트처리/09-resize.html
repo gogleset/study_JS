@@ -9,10 +9,10 @@
         * {width: 100%; height: 100%; padding: 0; margin: 0;}
         #container {text-align: center; font-size: 30px;}
         
-        .box-xs {background-color:#f00}
-        .box-sm {background-color:#0f0}
-        .box-md {background-color:#00f}
-        .box-lg {background-color:#ff0}
+        .box-xs {background-color:#f00;}
+        .box-sm {background-color:#0f0;}
+        .box-md {background-color:#00f;}
+        .box-lg {background-color:#ff0;}
 
     </style>
 </head>
@@ -21,7 +21,7 @@
 
     <script>
         const check_responsive = () => {
-            let w = window.innerWidth; //브라우저의 넓이
+            let w = window.innerWidth; //브라우저의 가로 넓이
             let responsive = 'xs'; //기본사이즈 단위는 xs
 
             // 브라우저의 구간 판정
@@ -31,7 +31,6 @@
 
             // 해상도 구간에 따라 xs, sm, md, lg 중 하나 리턴
             return responsive;
-
         } // end check_responsive()
 
         // 브라우저 크기에 따라 동작할 함수 정의

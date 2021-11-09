@@ -14,33 +14,39 @@
 </head>
 <body>
     <div id="container">
-        <div class="box1"></div>
+        <div class="box1">
+        </div>
     </div>
 
 
     <script>
         // 스코롤은 대부분 브라우저 레벨에서 수행되므로 window객체에 대해서 이벤트를 정의해야한다.
         window.addEventListener('scroll', e => {
+            // window는 웹브라우저 자체
             // 스크롤바의 y좌표
             // -->window.scrollY (None IE)
             // -->document.documentElement.scrllTop(IE)
             const scrollY = window.scrollY || document.documentElement.scrollTop;
 
-
             // 웹 브라우저의 창 높이
             const windowHeight = window.screen.availHeight;
 
-            // HTML 문서의 높이
-            const body = document.body,
-            html = document.documentElement;
-            const documentHeight = Math.max(body.scrollHeight,body.offsetHeight,html.clientHeight,html.scrollHeight,html.offsetHeight);
+            // body 태그 전체(익스플로러가 아닌경우)
+            const body = document.body;
+
+            // html 페이지 전체(익스플로러 때문에)
+            const html = document.documentElement;
+
+            const documentHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
 
             console.log('스크롤이 발생하고 있음 : scrollY=' + scrollY +', documentHeight=' + documentHeight + ',windowHeight=' + windowHeight);
 
+            // 스크롤바의 반동 효과를 고려해서 scrollY + windowHeight 가 실제 화면크기보다 커 질 수 도 있다.
             if(scrollY + windowHeight >= documentHeight){
                 console.log('스크롤이 맨 끝에 도착함');
                 const container = document.querySelector("#container");
                 container.innerHTML += '<div class="box1"></div>'
+                // 인피니티 스크롤
             }
         });
     </script>
