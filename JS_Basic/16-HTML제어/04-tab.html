@@ -54,15 +54,52 @@
 </head>
 <body>
     <div class="tab">
-        <button class="tablinks" data-city=''>
-
-        </button>
-        <button class="tablinks" data-city=''>
-
-        </button>
-        <button class="tablinks" data-city=''>
-
-        </button>
+        <button class="tablinks" data-city='London'>London</button>
+        <button class="tablinks" data-city='Paris'>
+        Paris</button>
+        <button class="tablinks" data-city='Tokyo'>
+        Tokyo</button>
     </div>
+
+    <div id="London" class="tabcontent active">
+        <h3>London</h3>
+        <p>London is the capital city of England.</p>
+    </div>
+
+    <div id="Paris" class="tabcontent">
+        <h3>Paris</h3>
+        <p>Paris is the capital of France.</p>
+    </div>
+
+    <div id="Tokyo" class="tabcontent">
+        <h3>Tokyo</h3>
+        <p>Tokyo is the capital of Japan</p>
+    </div>
+
+    <script>
+        const tablinks = document.querySelectorAll(".tablinks");
+
+        for(const tab of tablinks){
+            tab.addEventListener('click', e => {
+                // 모드 버튼에 대한 active 클래스 해제
+                for (const item of document.querySelectorAll(".tablink")){
+                    item.classList.remove('active');
+                }
+
+                // 클릭된 자기 자신은 active 클래스 적용
+                e.currentTarget.classList.add('active');
+
+                // 화면상에 보이는 모든 페이지를 숨김
+                for(const tc of document.querySelectorAll(".tabcontent")) {
+                    tc.classList.remove('active');
+                }
+
+                // 클릭된 버튼에 적용된 'data-city'값을 취득
+                const city = e.currentTarget.dataset.city;
+                // 취득한 값을 id속성으로 사용하는 페이지에게 active클래스 적용 -> 화면에 표시
+                document.getElementById(city).classList.add('active');
+            });
+        }
+    </script>
 </body>
 </html>
