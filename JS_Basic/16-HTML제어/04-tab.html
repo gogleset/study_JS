@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        /* Stryle the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color:#ddd;
+        }
+
+        /* Create an active / current tablink class */
+        .tab button.active{
+            background-color:#ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent{
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        .tabcontent.active{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab">
+        <button class="tablinks" data-city=''>
+
+        </button>
+        <button class="tablinks" data-city=''>
+
+        </button>
+        <button class="tablinks" data-city=''>
+
+        </button>
+    </div>
+</body>
+</html>
