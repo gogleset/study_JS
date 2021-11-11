@@ -114,7 +114,7 @@ Javascript가 고도화 됨에 따라 HTML과 Javascript 코드를 분리하는 
 | 이벤트    | 이벤트 핸들러 | 설 명                                    |
 | --------- | ------------- | ---------------------------------------- |
 | click     | OnClick       | 대상을 클릭했을 경우                     |
-| dbclick   | InDbclick     | 대상을 더블클릭했을 경우                 |
+| dblclick  | InDbclick     | 대상을 더블클릭했을 경우                 |
 | mousedown | OnMouseDown   | 마우스 단추를 눌렀을 경우                |
 | mouseup   | OnMouseUp     | 마우스 포인터를 위치했다가 벗어났을 경우 |
 | mousemove | OnMouseMove   | 마우스를 움직였을 경우                   |
