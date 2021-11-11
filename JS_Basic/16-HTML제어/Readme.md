@@ -16,6 +16,7 @@ mytag.innerHTML = "... 적용할 내용 ...";
 var content = mytag.innerHTML;
 ```
 
+
 ### HTML 속성 제어
 ```javascript
 mytag.hasAttribute(name);        //— 속성의 존재 확인.
@@ -46,3 +47,4 @@ mytag.classList.remove(name);   // 클래스 제거
 mytag.classList.toggle(name);   // 클래스 on/off
 mytag.classList.contains(name); // 해당 클래스가 존재하는지 여부를 boolean으로 반환
 ```
+
