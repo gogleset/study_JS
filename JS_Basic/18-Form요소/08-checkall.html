@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label>전체선택 <input type="checkbox" id="all_check"> </label>
+    <hr>
+    <label><input type="checkbox" class = "hobby" value = "soccor">축구</label>
+    <label><input type="checkbox" class = "hobby" value = "basketball">농구</label>
+    <label><input type="checkbox" class = "hobby" value = "baseball">야구</label>
+
+    <script>
+        document.querySelector("#all_check").addEventListener("change", e => {
+            // all_check라는 아이디에 포커스가 빠져나오면
+            document.querySelectorAll('.hobby').forEach((v,i) => {
+                // hobby라는 클래스의 원소의 checked속성을 자기자신의
+                v.checked = e.currentTarget.checked;
+            });
+        });
+    </script>
+</body>
+</html>

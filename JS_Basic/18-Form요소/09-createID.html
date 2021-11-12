@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .form-horizontal {
+            border: 5px solid #d5d5d5;
+            width: 500px;
+            margin: auto;
+            padding: 0 10px;
+        }
+
+        .form-group::after{
+            content: '';
+            display: block;
+            clear: both;
+            float: none;
+        }
+        
+        .form-group{
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dotted #eee;
+        }
+
+        .form-group:last-child {
+            border-bottom: 0;
+        }
+
+        .col-md-2 {
+            width: 20%;
+            display: block;
+            float: left;
+            font-size: 14px;
+            padding-top: 7px;
+            text-indent: 5px;
+        }
+
+        .col-md-10 {
+            width: 80%;
+            display: block;
+            float: left;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 5px 0;
+            font-size: 14px;
+            border: 1px solid #eee;
+        }
+
+        .text-center{
+            text-align: center;
+        }
+
+        .idetify{
+            font-size: 14px;
+            color: '#f00';
+        }
+    </style>
+</head>
+
+
+<body>
+    <!-- 가입폼시작 -->
+    <form name="join_form" class="form-horizontal" id="join_form">
+        <div class="form-group">
+            <label for="user_id" class="col-md-2">아이디 
+                <span class="identify">*
+                </span>
+            </label>
+            <div class="col-md-10">
+                <input type="text" id="user_id" name="user_id" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="user_pw" class="col-md-2">비밀번호
+                <span class="identify">*
+                </span>
+            </label>
+            <div class="col-md-10">
+                <input type="password" id="user_pw" name="user_pw" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="user_pw" class="col-md-2">비밀번호 확인 
+                <span class="identify">*
+                </span>
+            </label>
+            <div class="col-md-10">
+                <input type="password" id="user_pw_re" name="user_pw_re" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="user_name" class="col-md-2">이름 
+                <span class="identify">*
+                </span>
+            </label>
+            <div class="col-md-10">
+                <input type="text" id="user_name" name="user_name" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="col-md-2">이메일 
+                <span class="identify">*
+                </span>
+            </label>
+            <div class="col-md-10">
+                <input type="email" id="email" name="email" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="tel" class="col-md-2">연락처 
+                <span class="identify">*
+                </span>
+            </label>
+            <div class="col-md-10">
+                <input type="tel" id="tel" name="tel" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="gender1" class="col-md-2">성별 
+                <span class="identify">*
+                </span>
+            </label>
+            <div class="col-md-10">
+                <label><input type="radio" id="gender1" name="gender" value="M" />남자</label>
+                <label><input type="radio" id="gender2" name="gender" value="F" />여자</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="gender1" class="col-md-2">수강과목 
+                <span class="identify">*
+                </span>
+            </label>
+            <div class="col-md-10">
+                <label><input type="checkbox" id="subject1" name="subject" value="html" />HTML</label>
+                <label><input type="checkbox" id="subject2" name="subject" value="css" />CSS</label>
+                <label><input type="checkbox" id="subject3" name="subject" value="js" />Javascript</label>
+                <label><input type="checkbox" id="subject4" name="subject" value="jquery" />jQuery</label>
+                <label><input type="checkbox" id="subject7" name="subject" value="php" />PHP</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="text-center">
+                <button type="submit">가입하기</button>
+                <button type="reset">다시작성</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- 정규표현식 검사 객체를 참조한다. -->
+    <script src='regex_helper.js'></script>
+    <script>
+        document.querySelector('#join_form').addEventListener('submit', e => {
+            e.preventDefault();
+
+            const regexHelper = new RegexHelper()
+
+            // 처리완료
+            alert("입력형식 검사 완료!")
+        });
+    </script>
+</body>
+</html>

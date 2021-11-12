@@ -15,8 +15,46 @@
     </form>
 
     <script>
-        const jumin = document.querySelector(".jumin");
-        
+       //focus()함수는 특정 항목에 입력커서를 할당하는 기능.
+        //focus이벤트는 특정 항목에 입력커서가 할당되었을 때 동작하는 이벤트
+        // blue 이벤트는 특정 항목에서 입력커서가 빠져 나왔을 때 동작하는 이벤트 -> focus의 반대
+        document.querySelectorAll(".jumin").forEach((v,i) => {
+            v.addEventListener('focus', e => {
+                // 입력커서가 할당되면
+                e.currentTarget.style.backgroundColor = '#06f';
+                e.currentTarget.style.color = '#fff';
+                // 자신의 배경화면을 바꾸기
+            });
+
+            v.addEventListener('blur', e => {
+                // 입력커서가 나가면
+                e.currentTarget.style.backgroundColor = '#fff';
+                e.currentTarget.style.color = '#000';
+                // 자신의 배경화면 바꾸기
+            });
+        });
+
+        // 첫 번째 입력항목에 대한 독립적 이벤트
+        document.querySelector("#jumin1").addEventListener('keyup', e => {
+            // 키보드를 누를때마다 스스로의 입력값을 가져옴
+            const value = e.currentTarget.value;
+
+            if(value.length >= 6) {
+                // 스스로의 입력값을 6글자만 남겨놓고 제거
+                e.currentTarget.value = value.substring(0, 6);
+                document.querySelector("#jumin2").focus();
+            }
+        });
+        document.querySelector("#jumin2").addEventListener('keyup', e => {
+            // 키보드를 누를때마다 스스로의 입력값을 가져옴
+            const value = e.currentTarget.value;
+
+            if(value.length >= 8) {
+                // 스스로의 입력값을 6글자만 남겨놓고 제거
+                e.currentTarget.value = value.substring(0, 7);
+                e.currentTarget.setAttribute("disabled", "true");
+            }
+        });
     </script>
 </body>
 </html>
