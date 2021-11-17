@@ -1,0 +1,16 @@
+{
+  "name": "ls_library_sample",
+  "version": "1.0.0",
+  "description": "이젠아카데미 풀스택 개발자반 예제소스",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "leekh (leekh4232@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "fslightbox": "^3.3.0-2",
+    "handlebars": "^4.7.7"
+  },
+  "devDependencies": {}
+}
