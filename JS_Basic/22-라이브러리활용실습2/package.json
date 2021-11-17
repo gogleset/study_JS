@@ -1,0 +1,14 @@
+{
+  "name": "library.start",
+  "version": "1.0.0",
+  "description": "slide",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "choj (choij2494@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "rellax": "^1.12.1"
+  }
+}

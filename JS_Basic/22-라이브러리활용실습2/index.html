@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<style>
+		html,
+		body {
+			width: 100%;
+			height: 1500px;
+			/* background-color: aquamarine; */
+		}
+
+		.container {
+			margin-top: 10px;
+			width: 1000px;
+			height: 100px;
+			background-color: bisque;
+			text-align: right;
+			margin-bottom: 100px;
+		}
+
+		.box1 {
+			width: 100px;
+			height: 100px;
+			background-color: black;
+			color: white;
+			text-align: center;
+			line-height: 100px;
+
+		}
+
+		.box2 {
+			width: 100px;
+			height: 100px;
+			background-color: rgb(123, 31, 31);
+			color: white;
+			text-align: center;
+			line-height: 100px;
+			margin-left: 100px;
+		}
+
+		.box3 {
+			width: 100px;
+			height: 100px;
+			background-color: rgb(155, 84, 84);
+			color: white;
+			text-align: center;
+			line-height: 100px;
+			margin-left: 100px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Rellax</h1>
+	<p>
+		<a href="https://github.com/dixonandmoe/rellax">
+			https://github.com/dixonandmoe/rellax
+		</a>
+	</p>
+	<div>
+		<code>
+            $ npm install rellax --save
+		</code>
+	</div>
+	<div>
+		<!-- 1.시작하기 -->
+		<div class="container">
+			속성 data-rellax-percentage		
+			<div class="box1 rellax" style="float: left;">none</div>
+			<div class="box2 rellax" data-rellax-speed="7" style="float: left;">7</div>
+			<div class="box3 rellax" data-rellax-speed="-7"style="float: left;">-7</div>
+			<!-- 1. data-rellax-speed 는 양수일땐 위로, 음수일땐 아래로, 속도는 숫자의 값이 절대값으로 커진다면 속도도 함께 빨라짐 기본값은 아래로 내려감  -->
+		</div>
+
+		<!-- 2. 한꺼번에 구현 -->
+		<!-- <div class="container">
+			속성 data-rellax-percentage
+			<div class="box1 rellax" style="float: left;"></div>
+			<div class="box2 rellax" style="float: left;"></div>
+			<div class="box3 rellax" style="float: left;"></div>
+		</div> -->
+
+		<!-- 3. 크기별로 다르게 표시하기 -->
+		<!-- <div class="container">
+			속성 data-rellax-percentage
+			<div class="box1 rellax" 
+			data-rellax-xs-speed="-4" data-rellax-mobile-speed="-3" data-rellax-tablet-speed="-2" data-rellax-desktop-speed="-1"
+			style="float: left;">none</div>
+			<!-- 한꺼번에 선언된 rellax-speed가 무시됨 -->
+		<!-- <div class="box2 rellax" style="float: left;"></div>
+			<div class="box3 rellax" style="float: left;"></div> -->
+		<!-- </div> --> 
+
+		<!-- 4.centering -->
+		<!-- <div class="container">
+			속성 data-rellax-percentage
+			<div class="box1 rellax" style="float: left;"></div>
+			<div class="box2 rellax" style="float: left;"></div>
+			<div class="box3 rellax" style="float: left;"></div>
+		</div> -->
+
+
+		<!-- 5.가로로 움직이기 -->
+		<!-- <div class="container">
+			속성 data-rellax-horizontal-speed, data-rellax-vertical-scroll-axis
+			<div class="box1 rellax" data-rellax-horizontal-speed="-100" data-rellax-vertical-scroll-axis="x"   style="float: left;"></div> -->
+
+		<!-- horizontal-speed가 양수이면 왼쪽, 음수이면 오른쪽이동 절대값이 높을수록 빠르게 이동 -->
+		<!-- 
+			<div class="box2 rellax" data-rellax-horizontal-speed="-50" data-rellax-vertical-scroll-axis="x" style="float: left;"></div>
+
+			<div class="box3 rellax" style="float: left;"></div> -->
+		<!-- 아무 속성을 안주면 기본속성인 세로 이동특성으로 이동 -->
+		<!-- </div>  -->
+
+
+		<!-- 6.대각이동 -->
+		<!-- <div class="container">
+			속성 data-rellax-percentage
+			<div class="box1 rellax" data-rellax-horizontal-speed="-30" data-rellax-vertical-speed="-30"
+				data-rellax-vertical-scroll-axis="xy" style="float: left;"></div>
+			<!-- data-rellax-horizontal-speed가 음수이면 오른쪽, data-rellax-vertical-speed가 음수면 아래 외우기보단 그때그때보면서 하는게 나음-->
+			<!-- <div class="box2 rellax" style="float: left;"></div>
+			<div class="box3 rellax" style="float: left;"></div>
+		</div>  -->
+
+	</div>
+	<!-- 끝 -->
+
+
+	<!-- Scripts -->
+	<script src="./node_modules/rellax/rellax.min.js"></script>
+	<script>
+		// 1. 그냥 일반 구문만 썼을 때
+		let rellax = new Rellax('.rellax');
+
+		// 2. 한꺼번에 구현
+		// let rellax = new Rellax('.rellax', {
+		// 	speed: -2,
+		// 	// speed와 방향을 구현
+		// 	center: true,
+		// 	wrapper: null,
+		// 	round: true,
+		// 	vertical: true,
+		// 	horizontal: false
+		// });
+
+		// 4.centering이란 data-rellax-speed="-2"로 맞춰주는 특성
+		// let rellax = new Rellax('.rellax', {
+		// 	center: true
+		// });
+
+		// 5.가로,대각 이동특성
+		// let rellax = new Rellax('.rellax', {
+		// 	horizontal: true
+		// });
+	</script>
+</body>
+
+</html>
