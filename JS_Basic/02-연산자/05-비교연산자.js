@@ -3,8 +3,8 @@ let x = 100;
 let y = 50;
 
 let compare1 = x >= y; //이상 -true
-let compare2 = x > y; //초과 -false
-let compare3 = x <= y; //이하 -true
+let compare2 = x > y; //초과 -true
+let compare3 = x <= y; //이하 -false
 let compare4 = x < y; //미만 -false
 
 console.group("1) 이상, 이하, 초과, 미만");

@@ -91,7 +91,7 @@ console.group("6) not 연산 !")
 
 const a = true;
 
-//조건이  거짓이므로 출력되지 않음
+//조건이 거짓이므로 출력되지 않음
 
 if (!a) {
     console.log("helloworld");

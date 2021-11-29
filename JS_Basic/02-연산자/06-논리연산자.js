@@ -5,7 +5,7 @@ console.log(true && false); //false
 console.log(false && true); //false
 console.log(false && false); //false
 console.groupEnd();
-// 모든 불리언 타입이 트루일때 true를 출력
+// 모든 불리언 타입이 트루일때 true를 출력, 하나라도 false면 false 출력
 
 // 2)and 연산 여러개 사용
 console.group("2)and 연산 여러개 사용");
@@ -13,6 +13,7 @@ console.log(true && true && true); //true
 console.log(true && false && true); //false
 console.log(false && true  && false); //false
 console.log(false && false && true); //false
+console.log(false && false && false); //false
 console.groupEnd();
 // 즉, 모든 불리언 타입의 결과가 true일때만 true 출력!
 
@@ -23,7 +24,7 @@ console.log(true || false); //true
 console.log(false || true); //true
 console.log(false || false); //false
 console.groupEnd();
-// 즉, 불리언 타입 중 하나만 참이어도 true 출력
+// 즉, 불리언 타입 중 하나만 참이어도 true 출력, 둘다 false일때만 false 출력
 
 // 4)or 연산 여러개 사용
 console.group("4)or 연산 여러개 사용");
@@ -43,7 +44,7 @@ console.log(false && true  || true); //true
 
 console.log(true || true && true); //true
 console.log(true || true && false); //true
-console.log(false || false && true); //true
+console.log(false || false && true); //false
 console.log(false || true && true); //true
 
 console.groupEnd();
