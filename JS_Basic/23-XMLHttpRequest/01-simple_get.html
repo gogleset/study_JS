@@ -38,8 +38,10 @@
                 const {target} = e; // 구조분해, 비구조화할당
 
                 // 통신객체의 통신 상태에 따른 분기 처리
+                // readyState는 상태에 따라 number 값을 리턴(0 ~ 4)
+                // console.log(typeof(target.readyState));
                 switch(target.readyState) {
-                    case XMLHttpRequest.OPENED: // 1. -> xhr객체의 요청이 초기화 됨 -> 로딩바 출현
+                    case XMLHttpRequest.OPENED: // 1 -> xhr객체의 요청이 초기화 됨 -> 로딩바 출현
                     console.log("xhr객체의 요청이 초기화 됨");
                     break;
                     case XMLHttpRequest.HEADERS_RECEIVED: // 2 -> send()가 호출됨 -> 접속시도
@@ -48,7 +50,7 @@
                     case XMLHttpRequest.LOADING: // 3 -> 통신중
                     console.log("통신을 통한 데이터 수신중...");
                     break;
-                    case XMLHttpRequest.DONE: //4-> 통신 종료 -> 백엔드로부터 데이터를 받아왔거나 에러가 났거나 -> 로딩바를 닫고, 결과를 화면에 표시
+                    case XMLHttpRequest.DONE: //4 -> 통신 종료 -> 백엔드로부터 데이터를 받아왔거나 에러가 났거나 -> 로딩바를 닫고, 결과를 화면에 표시
                     console.log("통신 종료(성공!! 혹은 에러??");
 
                     // Ajax의 처리 결과를 구현하는 위치
