@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        dt{
+        dt {
             font-weight: bold;
             margin: 10px 0px;
             font-size: 20px;
         }
+
         dt:before {
             content: "@";
             padding-right: 5px;
         }
-        dd{
+
+        dd {
             font-weight: normal;
             margin-bottom: 30px;
             border-left: 5px #d5d5d5 solid;
@@ -24,6 +27,7 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Dept item</h1>
 
@@ -38,36 +42,51 @@
 
     <script>
         (() => {
-            const xhr = new XMLHttpRequest(); 
+            // xhr이란 변수에 XMLHttpRequest란 Ajax, 즉 통신객체를 상속받는다
+            const xhr = new XMLHttpRequest();
+            // 서버로 전송될 방식을 정한다.
             const method = "GET";
+            // 서버의 url을 지정한다.
             const url = "backend/dept_item.json";
 
+            // xhr의 readyState의 값이 변함을 감지
             xhr.onreadystatechange = e => {
-                const {target} = e; 
+                // e는 EVENT라는 객체, e의 target이라는 키 값을 target이라는 변수에 저장
+                // 이 target은 XMLRequestHttp를 의미
+                const { target } = e;
 
-                if(target.readyState == XMLHttpRequest.DONE) {
-                    if(target.status == 200){ 
+                // 만약 XMLRequestHttp의 readyState의 값이 XMLHttpRequest.DONE과 같다면
+                if (target.readyState == XMLHttpRequest.DONE) {
+                    // target은 EVENT 객체에서 XMLRequestHttp라는 객체가 되고
+
+                    // XMLHttpRequest.status == 200 즉, 서버 통신에 성공이면
+                    if (target.status == 200) {
+                        // req라는 변수에 XMLHttpRequest.responseurl에 담긴 주소의 값을 가지고 온다
                         const req = JSON.parse(target.response);
+                        // depto클래스의 사이에 req의 deptno키의 값을 넣어준다.
                         document.querySelector(".deptno").innerHTML = req.deptno;
                         document.querySelector(".dname").innerHTML = req.dname;
                         document.querySelector(".loc").innerHTML = req.loc;
-                    } else {    
+                    } else {  //서버와의 통신에 실패했다면   
                         const s = parseInt(target.status / 100);
                         let errMsg = "null"
-                        if( s == 4){
+                        if (s == 4) {
                             errMsg = `[${target.status}]${target.statusText}- 요청 주소가 잘못되었습니다.`;
-                        } else if (s == 5){
+                        } else if (s == 5) {
                             errMsg = `[${target.status}]${target.statusText}- 서버의 응답이 없습니다.`;
                         } else {
                             errMsg = `[${target.status}]${target.statusText}- 요청에 실패했습니다.`;
                         }
                         alert(errMsg);
-                    }   
+                    }
                 }
             };
+            // 이 모든 로직을 open이란 메소드로 한번에 묶는다
             xhr.open(method, url);
+            // 이 모든 로직을 서버에 보낸다
             xhr.send();
         })();
     </script>
 </body>
+
 </html>
