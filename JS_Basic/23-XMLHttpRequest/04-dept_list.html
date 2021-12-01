@@ -24,44 +24,71 @@
 
     <script>
         (() => {
-            const xhr = new XMLHttpRequest(); 
-            const method = "GET";
-            const url = "backend/dept_list.json";
+            const xhr = new XMLHttpRequest(); //Ajax의 기능을 수행하는 통신객체
+            const method = "GET"; //백엔드로 전송하는 방식
+            const url = "backend/dept_list.json"; //파일 위치
 
-            xhr.onreadystatechange = e => {
-                const {target} = e; 
-                console.log(e);
+            xhr.onreadystatechange = e => { //XMLHttpRequest의 객체인 readyState의 값에 변동이있다면
+                const {target} = e; //이벤트객체의 target이란 키를 받음
+                //이벤트 객체 안의 target은 XMLHttpRequest
 
                 if(target.readyState == XMLHttpRequest.DONE) {
+                    console.log(target);
+                    // 만약 XMLHttpRequest의 status 값이 200이라면(성공)
                     if(target.status == 200){ 
+                        // target은 XMLHttpRequest를 출력한다.
+                        console.log(target);
+
+                        // req는 XMLHttpRequest의 값을 받아 JSON의 형식으로 변환
+                        // response는 어떻게 json의 값을 받아오죠? 
+                        // const url에 적힌 url을 XMLHttpRequest의 객체인 responseurl이라는 객체의 값에 담겨서 값을 가져오게 된다.\
+                        
                         const req = JSON.parse(target.response);
+                        console.log(req);
+                        // 아이디 리스트바디 가져옴
                         const listBody = document.querySelector("#list-body");
 
+                        // req의 값에 저장된 item 객체를 원소의 갯수만큼 배열탐색 한다면
                         req.item.map((v,i) => {
+                            // tr은 tr이라는 태그를 만든다
                             const tr = document.createElement('tr');
-
+                            // td1은 td1이라는 태그를 만든다 
                             const td1 = document.createElement("td")
+                            // td1의 태그 사이에 원소의 deptno라는 키에 접속하여 값을 받아온다
                             td1.innerHTML = v.deptno;
 
+                            // td2는 td라는 태그를 만들게 된다.
                             const td2 = document.createElement("td")
+                            // td2의 태그 사이에 원소의 dname이라는 키에 접속하여 값을 받아온다
                             td2.innerHTML = v.dname;
 
+                            // td3는 td라는 태그를 만들게 된다.
                             const td3 = document.createElement("td")
+                            // td3의 태그 사이에 원소의 loc이라는 키에 접속하여 값을 받아온다.
                             td3.innerHTML = v.loc;
 
+                            // tr에 자식요소 td1,2,3을 추가
                             tr.appendChild(td1);
                             tr.appendChild(td2);
                             tr.appendChild(td3);
 
+                            // listBody에 자식요소 tr을 추가
                             listBody.appendChild(tr);
                         });
-                    } else {    
+                    } else { // 만약 서버통신에 실패한 경우   
+                        //  s 란 변수에 XMLHttpRequest.status의 값의 100을 나눈 몫을 구한다
                         const s = parseInt(target.status / 100);
+                        // errMsg는 null이다.
                         let errMsg = "null"
+                        // 만약 s가 4와 같다면
                         if( s == 4){
+                            // 출력
                             errMsg = `[${target.status}]${target.statusText}- 요청 주소가 잘못되었습니다.`;
+                            //만약 s가 5와 같다면  
                         } else if (s == 5){
+                            // 출력
                             errMsg = `[${target.status}]${target.statusText}- 서버의 응답이 없습니다.`;
+                            // 다 아니라면
                         } else {
                             errMsg = `[${target.status}]${target.statusText}- 요청에 실패했습니다.`;
                         }
@@ -69,7 +96,9 @@
                     }   
                 }
             };
+            // 이 모든 로직을 open이란 메소드로 한번에 묶는다
             xhr.open(method, url);
+            // 이 모든 로직을 서버에 보낸다
             xhr.send();
         })();
     </script>
