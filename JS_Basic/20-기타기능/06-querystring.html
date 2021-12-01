@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="console"></h1>
+    
+    <a href="06-querystring.html?weekday=mon">링크1</a>
+    |
+    <a href="06-querystring.html?weekday=sun">링크2</a>
+
+    <script>
+        // url 조회하는 메소드
+        console.log(location.search);
+
+        // url 조회에서 1번째 자리수를 제외한 나머지를 잘라 query에 저장
+        const query = location.search.substring(1);
+        console.log(query);
+        // query에 담긴 값들 중 문자열"&"만 잘라 params에 저장하여 배열로 리턴
+        const params = query.split("&");
+        console.log(params);
+
+        // object생성
+        const mydata = {};
+
+        // 배열 반복문
+        params.map((v,i) => {
+            // 이름=값 ==> tmp[0]는 이름, tmp[1]는 값
+            // v에 담긴 값들 중 문자열"="만 잘라 params에 저장하여 배열로 리턴
+            const tmp = v.split("=");
+            console.log(tmp);
+
+            // 값을 이름의 주소값에 복사
+            mydata[tmp[0]] = tmp[1];
+        });
+
+        console.log(mydata);
+
+        let msg = "";
+        //mydata의 weekday키값이 mon, sun일 케이스는
+        switch (mydata.weekday){
+            case "mon":
+                msg = "월요일입니다.";
+                break;
+            case "sun":
+                msg = "일요일입니다.";
+                break;
+        };
+        document.querySelector("#console").innerHTML = msg;
+    </script>
+</body>
+</html>   
