@@ -28,10 +28,8 @@
 
     <script>
         const showChart = (data, labels) => {
-            
+
             let ctx = document.getElementById('myChart').getContext('2d');
-            
-            console.log(1);
             let myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -45,22 +43,17 @@
                     }]
                 }
             });
-            myChart.destroy();
 
-            myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels:
-                        labels,
-                    datasets: [{
-                        label: '일간순위별 관객수',
-                        backgroundColor: 'rgb(255, 99, 132)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        data: data
-                    }]
-                },
-            })
-    }
+            myChart.data.datasets[0].data = data
+            myChart.update();
+        }
+        function addData(chart, label, data) {
+            chart.data.labels.push(label);
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data.push(data);
+            });
+            chart.update();
+        }
 
 
         const getMovieRank = (date) => {
@@ -71,6 +64,7 @@
             xhr.onreadystatechange = e => { //XMLHttpRequest의 객체인 readyState의 값에 변동이있다면
                 const { target } = e; //이벤트객체의 target이란 키를 받음
                 //이벤트 객체 안의 target은 XMLHttpRequest
+
 
                 if (target.readyState == XMLHttpRequest.DONE) {
                     console.log(target);
@@ -84,6 +78,7 @@
                         const data = [];
                         const labels = [];
                         const listBody = document.querySelector("#list-body");
+                        console.log(data);
 
                         req.boxOfficeResult.dailyBoxOfficeList.forEach((v, i) => {
                             data.push(Number(v.audiCnt));
@@ -91,7 +86,7 @@
                         req.boxOfficeResult.dailyBoxOfficeList.forEach((v, i) => {
                             labels.push(v.movieNm)
                         })
-
+                        console.log(data);
                         showChart(data, labels);
 
                         req.boxOfficeResult.dailyBoxOfficeList.map((v, i) => {
@@ -146,9 +141,9 @@
         const b = date.getDate() - 1;
         date.setDate(b);
 
-        const yy = date.getFullYear();
-        const mm = date.getMonth() + 1;
-        const dd = date.getDate();
+        let yy = date.getFullYear();
+        let mm = date.getMonth() + 1;
+        let dd = date.getDate();
 
         if (mm < 10) { mm = "0" + mm; }
         if (dd < 10) { dd = "0" + dd; }
