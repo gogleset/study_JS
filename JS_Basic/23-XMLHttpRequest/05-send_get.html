@@ -49,7 +49,7 @@
         const mylink = document.querySelectorAll('.mylink');
 
         mylink.forEach((v, i) => {
-           
+
             v.addEventListener('click', e => {
                 e.preventDefault();
 
@@ -64,7 +64,7 @@
                 // Ajax처리 로직 시작
                 const xhr = new XMLHttpRequest();
                 const method = "GET";
-                const url = "http://itpaper.co.kr/data/dept_item.php?deptno="+deptno;
+                const url = "http://itpaper.co.kr/data/dept_item.php?deptno=" + deptno;
 
                 xhr.onreadystatechange = e => {
                     const { target } = e;

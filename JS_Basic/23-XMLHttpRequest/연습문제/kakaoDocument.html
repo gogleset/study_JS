@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        a{
+            text-decoration:none;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form action="" id="list">
+            <input type="search" id="list_input" placeholder="검색하세요">
+            <button type="submit">검색</button>
+        </form>
+    </div>
+
+    <script>
+        let document_data = null;
+        let image_data = null;
+        const container = document.querySelector('.container')
+
+        document.getElementById("list").addEventListener("submit", e => {
+            // submit이벤트는 무조건 preventDefault
+            e.preventDefault();
+
+            let searchQuery = document.querySelector("#list_input").value.trim();
+            console.log(searchQuery);
+            get_document_element("web",searchQuery);
+            get_image_element("image",searchQuery);
+        })
+        
+        const create_image_element = (collection, thumbnail_url) => {
+            const a = document.createElement("a");
+            a.setAttribute("href", thumbnail_url)
+            a.setAttribute("target", "_blank");
+            a.innerHTML = collection + "</br>";
+
+            container.appendChild(a);
+        }
+        const create_document_element = (title, url) => {
+            const a = document.createElement("a");
+
+            a.setAttribute("href", url)
+            a.setAttribute("target", "_blank");
+            a.innerHTML = title + "</br>";
+
+            container.appendChild(a);
+        }
+        
+        const get_image_element = (select,query) => {
+            Array.from(container.getElementsByTagName('a')).map((v, i) => {
+                container.removeChild(v);
+            });
+            const xhr = new XMLHttpRequest(); 
+            const method = "GET"; 
+            const url = "https://dapi.kakao.com/v2/search/"+select+"?query=" + query + "&page=1&size=20"; 
+
+
+            xhr.onreadystatechange = e => { 
+                const { target } = e; 
+                if (target.readyState == XMLHttpRequest.DONE) {
+                    // target.statusText값이 "OK"라면
+                    if (target.status == 200) {
+                        const req = JSON.parse(target.response);
+                        let image_data = req.documents
+                        console.log(image_data);
+                        image_data.map((v,i) => {
+                            create_image_element(v.collection, v.thumbnail_url);
+                        })
+                    } else {    //서버와 연결이 안됐을 경우
+                        // s = target.status 와 100을 나눈 몫을 정수화
+                        const s = parseInt(target.status / 100);
+                        // 알림메세지가 담길 변수 errMsg
+                        let errMsg = "null"
+                        // s 가 4로 나누어 진다면
+                        if (s == 4) {
+                            errMsg = `[${target.status}]${target.statusText}- 요청 주소가 잘못되었습니다.`;
+                        } else if (s == 5) {
+                            errMsg = `[${target.status}]${target.statusText}- 서버의 응답이 없습니다.`;
+                        } else {
+                            errMsg = `[${target.status}]${target.statusText}- 요청에 실패했습니다.`;
+                        }
+                        // 알림메세지 출력
+                        alert(errMsg);
+                    }
+                }
+            }
+            xhr.open(method, url);
+
+            xhr.setRequestHeader('Authorization', 'KakaoAK c193e640c6f5851ca31109d7bd403779')
+
+            xhr.send();
+        }
+        const get_document_element = (select,query) => {
+            Array.from(container.getElementsByTagName('a')).map((v, i) => {
+                container.removeChild(v);
+            });
+            const xhr = new XMLHttpRequest(); 
+            const method = "GET"; 
+            const url = "https://dapi.kakao.com/v2/search/"+select+"?query=" + query + "&page=1&size=20"; 
+
+
+            xhr.onreadystatechange = e => { 
+                const { target } = e; 
+                if (target.readyState == XMLHttpRequest.DONE) {
+                    // target.statusText값이 "OK"라면
+                    if (target.status == 200) {
+                        const req = JSON.parse(target.response);
+                        let document_data = req.documents
+                        console.log(document_data);
+                        document_data.map((v,i) => {
+                            create_document_element(v.title, v.url);    
+                        });
+                    } else {    //서버와 연결이 안됐을 경우
+                        // s = target.status 와 100을 나눈 몫을 정수화
+                        const s = parseInt(target.status / 100);
+                        // 알림메세지가 담길 변수 errMsg
+                        let errMsg = "null"
+                        // s 가 4로 나누어 진다면
+                        if (s == 4) {
+                            errMsg = `[${target.status}]${target.statusText}- 요청 주소가 잘못되었습니다.`;
+                        } else if (s == 5) {
+                            errMsg = `[${target.status}]${target.statusText}- 서버의 응답이 없습니다.`;
+                        } else {
+                            errMsg = `[${target.status}]${target.statusText}- 요청에 실패했습니다.`;
+                        }
+                        // 알림메세지 출력
+                        alert(errMsg);
+                    }
+                }
+            }
+            xhr.open(method, url);
+
+            xhr.setRequestHeader('Authorization', 'KakaoAK c193e640c6f5851ca31109d7bd403779')
+
+            xhr.send();
+        }
+    </script>
+</body>
+
+</html>
