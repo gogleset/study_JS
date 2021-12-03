@@ -129,6 +129,35 @@
         // req.documents
         let data = {}
 
+        // 검색버튼 및 엔터버튼을 눌렀을 때 이벤트
+        document.querySelector('#searchForm').addEventListener("submit", e => {
+            e.preventDefault();
+
+            const queryField = document.querySelector("#query");
+            const query = queryField.value.trim();
+
+            if (!query) {
+                alert("검색어를 입력하세요");
+                queryField.focus();
+                return
+            }
+            // 출력
+            book_search(query);
+        })
+        // 오름차순으로 눌렀을 때 이벤트
+        document.querySelector('.btn1').addEventListener("click", e => {
+            console.log(1);
+            data1();
+            print();
+        })
+        // 내림차순으로 눌렀을 때 이벤트
+        document.querySelector('.btn2').addEventListener("click", e => {
+            console.log(2);
+            data2();
+            print();
+        })
+
+        // data를 받아서 오름차순으로 가공
         let data1 = () => {
             for (let i = 0; i < data.length - 1; i++) {
                 for (let j = i + 1; j < data.length; j++) {
@@ -140,6 +169,7 @@
                 }
             }
         }
+        // data를 받아서 내림차순으로 가공
         let data2 = () => {
             for (let i = 0; i < data.length - 1; i++) {
                 for (let j = i + 1; j < data.length; j++) {
@@ -151,7 +181,7 @@
                 }
             }
         }
-
+        // 데이터를 출력하는 함수
         let print = () => {
             Array.from(container.getElementsByTagName('div')).map((v, i) => {
                 container.removeChild(v);
@@ -208,7 +238,7 @@
                 ul.appendChild(li3);
             });
         }
-
+        // 데이터를 받아오는 함수
         let book_search = (query) => {
             const xhr = new XMLHttpRequest(); //Ajax의 기능을 수행하는 통신 "객체"
             const method = "GET"; // 백엔드에 접속하는 방식(GET, POST, PUT, DELETE)
@@ -256,38 +286,6 @@
             // xhr객체가 요청을 백엔드에 전송
             xhr.send();
         }
-        // 요청을 초기화(전달하는 방식, 목적 url)
-
-
-        //출력
-
-
-
-        document.querySelector('#searchForm').addEventListener("submit", e => {
-            e.preventDefault();
-
-            const queryField = document.querySelector("#query");
-            const query = queryField.value.trim();
-
-            if (!query) {
-                alert("검색어를 입력하세요");
-                queryField.focus();
-                return
-            }
-            // 출력
-            book_search(query);
-        })
-
-        document.querySelector('.btn1').addEventListener("click", e => {
-            console.log(1);
-            data1();
-            print();
-        })
-        document.querySelector('.btn2').addEventListener("click", e => {
-            console.log(2);
-            data2();
-            print();
-        })
 
 
     </script>

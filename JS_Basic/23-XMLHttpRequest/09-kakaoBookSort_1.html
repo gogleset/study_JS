@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #list li {
+           border-bottom: 1px dotted #d5d5d5;
+        }
+
+        #list li:first-child {
+            border-top: 1px dotted #d5d5d5;
+        }
+
+        #list a {
+            display: block;
+            width: auto;
+            height: 160px;
+            padding: 10px 10px 10px 150px;
+            position: relative;
+            color: #000;
+            text-decoration: none;
+        }
+
+        #list a span:first-child {
+            display: block;
+            width: 120px;
+            height: 160px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+
+        #list a h2 {
+            font-size: 18px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            word-wrap: break-word;
+        }
+
+        #list a span,
+        #list a p {
+            font-size: 14px;
+        }
+
+        #list a p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            word-wrap: break-word;
+        }
+
+
+        #list span.info:after,
+        #list span.price:after {
+            content: '|';
+            margin-left: 7px;
+            margin-right: 7px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>KaKao Book Search</h1>
+    <form id="searchForm">
+        <fieldset>
+            <input type="search" placeholder="Search..." id="query">
+            <button type="submit">검색</button>
+
+            <a href="#" id="sort-button-asc">낮은 가격순 정렬</a>
+            <a href="#" id="sort-button-desc">높은 가격순 정렬</a>
+        </fieldset>
+    </form>
+
+    <ul id="list"></ul>
+
+    <script>
+
+        let data = null;
+        let query = null;
+
+        // 검색버튼에 대한 이벤트
+        document.querySelector('#searchForm').addEventListener('submit', e => {
+            e.preventDefault();
+
+            const queryField = document.querySelector("#query");
+            const query = queryField.value.trim();
+
+            if (!query) {
+                alert("검색어를 입력하세요");
+                queryField.focus();
+                return
+            }
+
+            getData();
+
+        });
+
+        document.querySelector("#sort-button-asc").addEventListener('click', e => sort("asc"));
+
+        document.querySelector("#sort-button-asc").addEventListener('click', e => sort("desc"));
+
+        // Ajax를 통해 데이터 가져오기
+        const getData = () => {
+
+            const xhr = new XMLHttpRequest(); //Ajax의 기능을 수행하는 통신 "객체"
+            const method = "GET"; // 백엔드에 접속하는 방식(GET, POST, PUT, DELETE)
+            const url = "https://dapi.kakao.com/v3/search/book?query=" + query + "&page=1&size=50"; //접속할 위치
+
+            xhr.onreadystatechange = e => { //Ajax 통신객체를 받은 객체 xhr이 readyState객체의 프로퍼티 값이 변할때 마다 호출
+                const { target } = e; //구조분해 문법 -> e라는 객체에 target을 불러옴
+                console.log(target); //XMLHttpRequest 객체의 값을 불러옴
+
+                // target.readyState값이 XMLHttpRequest.DONE과 같다면
+                if (target.readyState == XMLHttpRequest.DONE) {
+                    // target.statusText값이 "OK"라면
+                    if (target.status == 200) {
+                        const req = JSON.parse(target.response);
+
+                        // 받은 데이터의 state 키값에 접근, 배열이라 반복문
+                        data = req.documents;
+                        printData();    
+                    } else {    //서버와 연결이 안됐을 경우
+                        // s = target.status 와 100을 나눈 몫을 정수화
+                        const s = parseInt(target.status / 100);
+                        // 알림메세지가 담길 변수 errMsg
+                        let errMsg = "null"
+                        // s 가 4로 나누어 진다면
+                        if (s == 4) {
+                            errMsg = `[${target.status}]${target.statusText}- 요청 주소가 잘못되었습니다.`;
+                        } else if (s == 5) {
+                            errMsg = `[${target.status}]${target.statusText}- 서버의 응답이 없습니다.`;
+                        } else {
+                            errMsg = `[${target.status}]${target.statusText}- 요청에 실패했습니다.`;
+                        }
+                        // 알림메세지 출력
+                        alert(errMsg);
+                    }
+                }
+            };
+            // 요청을 초기화(전달하는 방식, 목적 url)
+            xhr.open(method, url);
+
+            xhr.setRequestHeader('Authorization', 'KakaoAK c193e640c6f5851ca31109d7bd403779')
+
+            // xhr객체가 요청을 백엔드에 전송
+            xhr.send();
+        }
+
+        // 정렬을 수행하는 메서드
+        const sort = (direction) => {
+            // data에 대한 정렬 구현
+            for (let i = 0; i < data.length - 1; i++) {
+                for (let j = i + 1; j < data.length; j++) {
+                    if (direction == 'asc') {
+                        if (data[i].price > data[j].price) {
+                            let tmp = data[i]
+                            data[i] = data[j]
+                            data[j] = tmp;
+                        }
+                    } else {
+                        if (data[i].price < data[j].price) {
+                            let tmp = data[i]
+                            data[i] = data[j]
+                            data[j] = tmp;
+                        }
+                    }
+                }
+            }
+            printData();
+        }
+
+        // 화면에 data의 내용을 출력하는 메서드
+        const printData = () => {
+            const list = document.querySelector("#list");
+
+            Array.from(list.getElementsByTagName("li")).map((v, i) => {
+                list.removeChild(v);
+            })
+
+            data.map((v, i) => {
+                console.log(v);
+
+                const li = document.createElement("li");
+
+                const a = document.createElement("a");
+                a.setAttribute("href",v.url);
+
+                const span0 = document.createElement("span");
+                span0.style.backgroundImage = "url('" + v.thumbnail + "')";
+
+                const h2 = document.createElement("h2");
+                h2.innerHTML = v.title;
+
+                const p = document.createElement("p");
+                p.innerHTML = v.contents;
+
+                const span1 = document.createElement("span");
+                span1.innerHTML = v.authors.join(", ");
+                span1.classList.add('info');
+
+                const span2 = document.createElement("span");
+                span2.innerHTML = v.publisher;
+                span2.classList.add('info');
+
+                const span3 = document.createElement("span");
+                span3.innerHTML = v.price;
+                span3.classList.add('info');
+
+                const span4 = document.createElement("span");
+                span4.innerHTML = v.sale_price;
+                span4.classList.add('price');
+
+                li.appendChild(a);
+                a.appendChild(span0);
+                a.appendChild(h2);
+                a.appendChild(p);
+                a.appendChild(span1);
+                a.appendChild(span2);
+                a.appendChild(span3);
+                a.appendChild(span4);
+
+                list.appendChild(li);   
+            });
+
+        }
+    </script>
+</body>
