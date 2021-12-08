@@ -177,8 +177,11 @@
 
     <script src="teacher_Ajax.js"></script>
     <script>
+        // 입력값 저장
         let query = null;
+        // web, cafe, blog 의 타입을 적음
         let type = null;
+
         // 검색 버튼에 대한 이벤트
         document.querySelector('#searchForm').addEventListener('submit', (e) => {
             e.preventDefault();
@@ -222,10 +225,9 @@
                     type = "cafe"
                     ajaxhelper({
                         url: "https://dapi.kakao.com/v2/search/" + type + "?query=" + query + "&page=1&size=50",
-                        success: req => {
-                            printData(req);
+                        success: (json) => {
+                            printData(json);
                         }
-
                     })
                 } else if (currentIndex == 2) {
                     type = "blog"
