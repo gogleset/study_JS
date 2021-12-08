@@ -1,8 +1,8 @@
 class Calling {
-    do_query = null;
-    web_data = null;
-    cafe_data = null;
-    blog_data = null;
+  do_query = null;
+  web_data = null;
+  cafe_data = null;
+  blog_data = null;
 
   call = (data, do_query) => {
     const xhr = new XMLHttpRequest(); //Ajax의 기능을 수행하는 통신 "객체"
@@ -73,38 +73,34 @@ class Calling {
     const list = document.querySelector("#list");
     // 초기화
     Array.from(list.getElementsByTagName("li")).map((v, i) => {
-        list.removeChild(v);
-    })
-
-
-    if (data == "web") {
-        typeofdata = this.web_data;
-    } else if (data == "cafe") {
-        typeofdata = this.cafe_data;
-    } else if (data == "blog") {
-        typeofdata = this.blog_data;
-    }
-
-
-    typeofdata.map((v, i) => {
-        console.log(v);
-
-        const li = document.createElement("li");
-
-        const a = document.createElement("a");
-        a.setAttribute("target","_blank");
-        a.setAttribute("href", v.url);
-        a.innerHTML = "제목: " + v.title
-
-        const p = document.createElement("p");
-        p.innerHTML = "설명: " + v.contents;
-
-
-        li.appendChild(a);
-        a.appendChild(p);
-
-        list.appendChild(li);
+      list.removeChild(v);
     });
 
-}
+    if (data == "web") {
+      typeofdata = this.web_data;
+    } else if (data == "cafe") {
+      typeofdata = this.cafe_data;
+    } else if (data == "blog") {
+      typeofdata = this.blog_data;
+    }
+
+    typeofdata.map((v, i) => {
+      console.log(v);
+
+      const li = document.createElement("li");
+
+      const a = document.createElement("a");
+      a.setAttribute("target", "_blank");
+      a.setAttribute("href", v.url);
+      a.innerHTML = "제목: " + v.title;
+
+      const p = document.createElement("p");
+      p.innerHTML = "설명: " + v.contents;
+
+      li.appendChild(a);
+      a.appendChild(p);
+
+      list.appendChild(li);
+    });
+  };
 }

@@ -100,7 +100,7 @@
         // 모듈 불러오기
         const my = new Calling();
 
-            // 폼 이벤트
+        // 폼 이벤트
         document.querySelector('#searchForm').addEventListener("submit", e => {
             e.preventDefault();
 
@@ -122,6 +122,7 @@
             // web_call(query);
             my.call("web", my.do_query);
         })
+        
         // 탭링크 이벤트
         document.querySelectorAll(".tablinks").forEach((v, i) => {
             v.addEventListener("click", e => {
