@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       
+    </style>
+</head>
+
+<body>
+    <form id="search">
+        <input type="text" id="query">
+    </form>
+
+    <ul id="container">
+
+    </ul>
+
+
+    <script src="./teacher_Ajax.js"></script>
+    <script>
+        document.getElementById("search").addEventListener("submit", e => {
+            e.preventDefault();
+
+            const queryField = document.querySelector("#query");
+            const query = queryField.value.trim();
+
+            if (!query) {
+                alert("검색어를 입력하세요");
+                queryField.focus();
+                return
+            }
+            // 출력
+            console.log(query);
+
+            ajaxhelper({
+                url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json?key=d145fd2512b2f9be50d440aedfa4b898&peopleNm=" + query,
+                success: (req) => {
+                    let c = null;
+                    req.peopleListResult.peopleList.map((v, i) => {
+                        console.log(v);
+                        console.log(v.peopleNm);
+                        c = v.peopleCd
+                        console.log(c);
+                        // return v.
+                    })
+                    ajaxhelper({
+
+                        url: " http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleInfo.json?key=d145fd2512b2f9be50d440aedfa4b898&peopleCd=" + c,
+                        success: (req) => {
+                            let b = null;
+                            console.log(req);
+                            req.peopleInfoResult.peopleInfo.filmos.map((v, i) => {
+                                console.log(v.movieCd);
+                                b = v.movieCd;
+                                console.log(b);
+                            })
+                            ajaxhelper({
+
+                                url: " http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=d145fd2512b2f9be50d440aedfa4b898&movieCd=" + b,
+                                success: (req) => {
+                                    console.log(req.movieInfoResult.movieInfo);
+                                    // req.peopleInfoResult.peopleInfo.filmos.map((v, i) => {
+                                    //     console.log(v.movieCd);
+                                    //     b = v.movieCd;
+                                    //     console.log(b);
+                                    // })
+                                }
+                            })
+                        }
+                    })
+
+                    // printData(req);
+                }
+            })
+
+        });
+
+
+        const printData = (data) => {
+            console.log(data.peopleListResult.peopleList);
+            data.peopleListResult.peopleList.map((v, i) => {
+                console.log(v.peopleNm);
+                // tr은 tr이라는 태그를 만든다
+                const ul = document.querySelector("#container");
+                const li = document.createElement('li');
+                li.innerHTML = "이름: " + v.peopleNm;
+                // td1은 td1이라는 태그를 만든다 
+                const li1 = document.createElement("li1")
+                li1.innerHTML = "영어이름: " + v.peopleNmEn;
+
+                // td2는 td라는 태그를 만들게 된다.
+                const td2 = document.createElement("td")
+
+                td2.innerHTML = v.movieNm;
+
+                // td3는 td라는 태그를 만들게 된다.
+                const td3 = document.createElement("td")
+                // td3의 태그 사이에 원소의 loc이라는 키에 접속하여 값을 받아온다.
+                td3.innerHTML = v.audiCnt;
+
+                const td4 = document.createElement("td")
+
+                td4.innerHTML = v.openDt;
+
+                // tr에 자식요소 td1,2,3을 추가
+                ul.appendChild(li);
+                ul.appendChild(li1);
+
+            });
+        };
+    </script>
+</body>
+
+</html>
