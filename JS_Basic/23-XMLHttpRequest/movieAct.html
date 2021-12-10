@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-       
+
     </style>
 </head>
 
@@ -21,7 +21,7 @@
     </ul>
 
 
-    <script src="./teacher_Ajax.js"></script>
+    <script src="./ajaxhelper.js"></script>
     <script>
         document.getElementById("search").addEventListener("submit", e => {
             e.preventDefault();
@@ -44,12 +44,11 @@
                     req.peopleListResult.peopleList.map((v, i) => {
                         console.log(v);
                         console.log(v.peopleNm);
-                        c = v.peopleCd
+                        c = v.peopleCd;
                         console.log(c);
                         // return v.
                     })
                     ajaxhelper({
-
                         url: " http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleInfo.json?key=d145fd2512b2f9be50d440aedfa4b898&peopleCd=" + c,
                         success: (req) => {
                             let b = null;
@@ -58,22 +57,21 @@
                                 console.log(v.movieCd);
                                 b = v.movieCd;
                                 console.log(b);
-                            })
-                            ajaxhelper({
 
-                                url: " http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=d145fd2512b2f9be50d440aedfa4b898&movieCd=" + b,
-                                success: (req) => {
-                                    console.log(req.movieInfoResult.movieInfo);
-                                    // req.peopleInfoResult.peopleInfo.filmos.map((v, i) => {
-                                    //     console.log(v.movieCd);
-                                    //     b = v.movieCd;
-                                    //     console.log(b);
-                                    // })
-                                }
+                                // moviecd값의 수만큼 반복을 계속 돌려서 반복수만큼의 ajax 호출
+                                ajaxhelper({
+                                    url: " http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=d145fd2512b2f9be50d440aedfa4b898&movieCd=" + b,
+                                    success: (req) => {
+                                        // actors의 반복문 갯수마다 반복하면서 출력
+                                        console.log(req.movieInfoResult.movieInfo);
+                                        req.movieInfoResult.movieInfo.actors.map((v, i) => {
+                                            console.log(v);
+                                        });
+                                    }
+                                })
                             })
                         }
                     })
-
                     // printData(req);
                 }
             })
