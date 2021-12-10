@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        dt {
+            font-weight: bold;
+            margin: 10px 0px;
+            font-size: 20px;
+        }
+
+        dt:before {
+            content: "@";
+            padding-right: 5px;
+        }
+
+        dd {
+            font-weight: normal;
+            margin-bottom: 30px;
+            border-left: 5px #d5d5d5 solid;
+            padding-left: 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Dept item</h1>
+
+    <a href="#" class="mylink" data-deptno="101">컴퓨터공학과</a>
+    <a href="#" class="mylink" data-deptno="102">멀티미디어학과</a>
+    <a href="#" class="mylink" data-deptno="201">전자공학과</a>
+    <a href="#" class="mylink" data-deptno="202">기계공학과</a>
+
+    
+
+
+    <dl id="dept-item">
+        <div id="result"></div>
+        <script id="tmpl" type="text/x-handlebars-template">
+            <dt>학과번호</dt>
+            <dd>{{deptno}}</dd>
+            <dt>학과명</dt>
+            <dd>{{{dname}}}</dd>
+            <!-- 콧수염 3개면 기능 실행 -->
+            <dt>학과위치</dt>
+            <dd>{{loc}}</dd>
+        </script>
+    </dl>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+        integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./ajaxPromiseHelper.js"></script>
+    <script>
+        const mylink = document.querySelectorAll('.mylink');
+        mylink.forEach((v, i) => {
+
+            v.addEventListener('click', e => {
+                e.preventDefault();
+                const current = e.currentTarget;
+
+                const deptno = current.dataset.deptno;
+                console.log(deptno);
+
+                document.querySelector("#dept-item").style.display = "block";
+
+                ajaxPromiseHelper("http://itpaper.co.kr/data/dept_item.php?deptno=" + deptno).then(json => {
+
+                    console.log(json);
+                    // 내용을 출력할 HTML 템플릿 가져오기
+                    const html = document.querySelector("#tmpl").innerHTML;
+                    console.log(html);
+                    // HTML태그를 분석해서 실행 함수를 리턴함.
+                    const template = Handlebars.compile(html);
+                    // 실행함수에 데이터를 전달해서 결과물 조립
+                    const result = template(json);
+                    console.log(result);
+                    document.querySelector("#result").insertAdjacentHTML("beforeend", result);
+                }).catch(e => {
+                    console.log(e);
+                    alert(e);
+                })
+                // Ajax 처리 로직 끝
+            })
+        });
+    </script>
+</body>
+
+</html>

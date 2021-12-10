@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>영화진흥위원회 박스오피스 순위</h1>
+
+    <input type="date" id="targetDt" />
+    <table border="1">
+        <thead>
+            <tr>
+                <th>순위</th>
+                <th>영화제목</th>
+                <th>관객수</th>
+                <th>개봉일</th>
+            </tr>
+        </thead>
+
+        <tbody id="result">
+            <script id="tmpl" type="text/x-handlebars-template">
+            <tr>
+                <td>{{rank}}</td>
+                <td>{{movieNm}}</td>
+                <td>{{audiCnt}}</td>
+                <td>{{openDt}}</td>
+            </tr>
+        </script>
+        </tbody>
+    </table>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+        integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./ajaxPromiseHelper.js"></script>
+    <script>
+        const getMovieRank = (targetDt) => {
+            ajaxPromiseHelper("http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=d145fd2512b2f9be50d440aedfa4b898&targetDt="+targetDt).then(json => {
+                console.log(json);
+                // 아이디 리스트바디 가져옴
+                const result = document.querySelector("#result");
+
+                
+                // req의 값에 저장된 item 객체를 원소의 갯수만큼 배열탐색 한다면
+                json.boxOfficeResult.dailyBoxOfficeList.map((v, i) => {
+                    console.log(v);
+                    // 내용을 출력할 HTML 템플릿 가져오기
+                    const html = document.querySelector("#tmpl").innerHTML;
+                    console.log(html);
+                    // HTML태그를 분석해서 실행 함수를 리턴함.
+                    const template = Handlebars.compile(html);
+                    // 실행함수에 데이터를 전달해서 결과물 조립
+                    const result = template(v);
+                    console.log(result);
+                    document.querySelector("#result").insertAdjacentHTML("beforeend", result);
+                });
+            }).catch(e => {
+                console.log(e);
+                alert(e);
+            })
+        }
+
+        document.querySelector("#targetDt").addEventListener("change", e => {
+            const date = e.currentTarget.value.replaceAll("-", "");
+            console.log(date);
+            getMovieRank(date);
+            Array.from(result.getElementsByTagName("tr")).forEach((v, i) => {
+                    result.removeChild(v);
+                })
+
+        });
+
+        // 페이지 열림과 동시에 실행됨
+        const date = new Date();
+        // 하루 전을 계산
+        const b = date.getDate() - 1;
+        date.setDate(b);
+
+        let yy = date.getFullYear();
+        let mm = date.getMonth() + 1;
+        let dd = date.getDate();
+
+        if (mm < 10) { mm = "0" + mm; }
+        if (dd < 10) { dd = "0" + dd; }
+
+        const sendDate = "" + yy + mm + dd;
+        getMovieRank(sendDate);
+    </script>
+</body>
+
+</html>

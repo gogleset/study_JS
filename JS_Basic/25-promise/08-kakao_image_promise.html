@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #list li {
+            width: 150px;
+            height: 180px;
+            float: left;
+            margin: 10px;
+        }
+
+        #list li a {
+            display: block;
+            width: 150px;
+            height: 150px;
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            text-decoration: none;
+            color: #000;
+        }
+
+        #list li span {
+            display: block;
+            font-size: 14px;
+            padding: 5px 10px;
+            text-align: center;
+        }
+
+        #list::after {
+            content: '';
+            display: block;
+            float: none;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>KaKao Image Search</h1>
+
+    <form id="searchForm">
+        <fieldset>
+            <input type="search" id="query" placeholder="Search..." />
+            <button type="submit">검색</button>
+        </fieldset>
+    </form>
+
+    <ul id="list">
+        <script id="tmpl" type="text/x-handlebars-template">
+            <li>
+                <a target="_blank">{{title}}
+                    <img src="{{thumbnail_url}}" alt="">
+                </a>
+                <span>
+                    {{display_sitename}}
+                </span>
+            </li>
+        </script>
+    </ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+        integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./ajaxPromiseHelper.js"></script>
+    <script>
+        const get_image_search = (query, method, headers) => {  
+            ajaxPromiseHelper("https://dapi.kakao.com/v2/search/image?query=" + query + "&page=1&size=50", "GET", headers).then(json => {
+                // ajax통신이 성공했을때 실행될 코드
+                console.log(json);
+                const list = document.querySelector("#list");
+
+                Array.from(list.getElementsByTagName('li')).map((v, i) => {
+                    list.removeChild(v);
+                });
+
+
+                // 받은 데이터의 state 키값에 접근, 배열이라 반복문
+                json.documents.map((v, i) => {
+                    console.log(v);
+                    const li = document.createElement('li');
+
+                    const a = document.createElement('a');
+                    a.setAttribute('href', v.doc_url);
+                    a.setAttribute('target', '_blank');
+                    a.setAttribute('title', v.display_sitename);
+                    a.style.backgroundImage = "url(" + v.thumbnail_url + ')';
+
+                    // 내용을 출력할 HTML 템플릿 가져오기
+                    const html = document.querySelector("#tmpl").innerHTML;
+                    console.log(html);
+                    // HTML태그를 분석해서 실행 함수를 리턴함.
+                    const template = Handlebars.compile(html);
+                    // 실행함수에 데이터를 전달해서 결과물 조립
+                    const result = template(v);
+                    console.log(result);
+                    document.querySelector("#list").insertAdjacentHTML("beforeend", result);
+                });
+            }).catch(e => {
+                // ajax 통신이 실패했을때 실행될 코드
+                console.log(e);
+                alert(e.msg);
+            })
+        };
+
+
+
+        document.querySelector('#searchForm').addEventListener("submit", e => {
+            e.preventDefault();
+
+            const queryField = document.querySelector("#query");
+            const query = queryField.value.trim();
+
+            if (!query) {
+                alert("검색어를 입력하세요");
+                queryField.focus();
+                return
+            }
+
+            let headers = { 'Authorization': 'KakaoAK c193e640c6f5851ca31109d7bd403779' }
+            console.log(headers.Authorization);
+            get_image_search(query, "GET", headers);
+        })
+    </script>
+</body>
+
+</html>

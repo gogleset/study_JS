@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial;
+        }
+
+        /* Stryle the tab */
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ccc;
+        }
+
+        /* Create an active / current tablink class */
+        .tab button.active {
+            background-color: #ddd;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        .tabcontent.active {
+            display: block;
+        }
+
+        dt {
+            font-weight: bold;
+            margin: 10px 0px;
+            font-size: 20px;
+        }
+
+        dt:before {
+            content: "@";
+            padding-right: 5px;
+        }
+
+        dd {
+            font-weight: normal;
+            margin-bottom: 30px;
+            border-left: 5px #d5d5d5 solid;
+            padding-left: 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="option_1" name="">
+        <option class="options" value="101">
+            컴퓨터공학과
+        </option>
+        <option class="options" value="102">
+            멀티미디어학과
+        </option>
+        <option class="options" value="201">
+            전자공학과
+        </option>
+        <option class="options" value="202">
+            기계공학과
+        </option>
+    </select>
+
+    <div class="tab">
+        <button class="tablinks" data-deptno="101">컴퓨터공학과</button>
+        <button class="tablinks" data-deptno="102">
+            멀티미디어학과</button>
+        <button class="tablinks" data-deptno="201">
+            전자공학과</button>
+        <button class="tablinks" data-deptno="202">
+            기계공학과</button>
+    </div>
+
+    <div id="London" class="tabcontent active">
+        <script id="tmpl" type="text/x-handlebars-template">
+        <dl id="dept-item">
+            <dt>학과번호</dt>
+            <dd>{{deptno}}</dd>
+            <dt>학과명</dt>
+            <dd>{{dname}}</dd>
+            <!-- 콧수염 3개면 기능 실행 -->
+            <dt>학과위치</dt>
+            <dd>{{loc}}</dd>
+        </dl>
+        </script>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+        integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./ajaxPromiseHelper.js"></script>
+    <script>
+        // ajax처리 로직
+
+        const get_dept_item = (deptno) => {
+            // Ajax처리 로직 시작
+            ajaxPromiseHelper("http://itpaper.co.kr/data/dept_item.php?deptno=" + deptno).then(json => {
+                console.log(json);
+                    // 내용을 출력할 HTML 템플릿 가져오기
+                    const html = document.querySelector("#tmpl").innerHTML;
+                    console.log(html);
+                    // HTML태그를 분석해서 실행 함수를 리턴함.
+                    const template = Handlebars.compile(html);
+                    // 실행함수에 데이터를 전달해서 결과물 조립
+                    const result = template(json);
+                    console.log(result);
+                    document.querySelector("#London").insertAdjacentHTML("beforeend", result);
+            }).catch(e => {
+                console.log(e);
+                alert(e);
+            })
+            // Ajax 처리 로직 끝
+        };
+
+        document.querySelector("#option_1").addEventListener('change', e => {
+            let current = e.currentTarget;
+            let value = current.value;
+
+            console.log(current);
+            console.log(current.dataset.deptno);
+            console.log(value);
+
+            get_dept_item(value);
+        })
+
+        document.querySelectorAll(".tablinks").forEach((v, i) => {
+            v.addEventListener("click", e => {
+                // 현재 클릭된 항목의 인덱스 번호
+                const currentIndex = i;
+                console.log(i);
+                const lon = document.querySelector("#London");
+                Array.from(lon.getElementsByTagName("dl")).map((v, i) => {
+                    lon.removeChild(v);
+                })
+                // 클릭된 버튼에 적용된 'data-target'값을 취득
+                const currentTarget = e.currentTarget.dataset.target;
+
+                // 모든 버튼에 대한 active클래스 해제
+                document.querySelectorAll(".tablinks").forEach((v1, i1) => {
+                    if (currentIndex == i1) {
+                        v1.classList.add('active');
+                    } else {
+                        v1.classList.remove('active');
+                    }
+                });
+
+                // 클릭된 링크 자신
+                const current = e.currentTarget;
+
+                // 링크에 숨겨진 data-deptno의 값을 가져옴
+                const deptno = current.dataset.deptno;
+                console.log(deptno);
+
+                // ajax기능 호출
+                get_dept_item(deptno);
+            })
+        })
+
+        //초기값 설정
+        get_dept_item(101);
+    </script>
+</body>
+
+</html>

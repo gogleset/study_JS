@@ -1,22 +1,25 @@
 ajaxPromiseHelper = (url, method="GET", headers=null) => {
- 
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open(method || "GET", url);
-
-    // console.log(url);
+    
+    
     if(headers != undefined) {
+        console.log(headers);
         for(const key in headers) {
             xhr.setRequestHeader(key, headers[key]);
         }
     }
+
+    // 링크에 숨겨진 data-deptno값을 백엔드에 전송함
+    // const url = 'https://dapi.kakao.com/v2/search/' + type + '?query=' + query + '&page=1&size=50';
     xhr.onreadystatechange = (e) => {
       const ajax = e.target;
 
       if (ajax.readyState == XMLHttpRequest.DONE) {
         if (ajax.status == 200) {
+          
             const json = JSON.parse(ajax.responseText);
-            // console.log(json);
             resolve(json);
             console.log("통과됐어!");
             // promise기법은 콜백함수를 줄이기 위해 등장한 기법.
@@ -36,10 +39,12 @@ ajaxPromiseHelper = (url, method="GET", headers=null) => {
           }
         // 실패했을 경우 콜백 호출이 아닌 reject를 호출함.
         //  ==> 바깥 실행부분의 .catch(function(e) {...}) 영역의 콜백함수를 대신 호출해줌
-         reject({status: ajax.status, text:ajax.statusText, msg: msg});
+         reject({status: ajax.status, text:ajax.statusText, msg:msg});
         }
-    }
+      }
     };
-    xhr.send();
+
+      xhr.send();
+    
   });
 };

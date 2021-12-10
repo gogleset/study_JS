@@ -23,9 +23,11 @@
             e.preventDefault();
 
             ajaxPromiseHelper("../23-XMLHttpRequest/backend/hello.json").then(json => {
+                // ajax통신이 성공했을때 실행될 코드
                 console.log(json);
                 document.getElementById("console").innerHTML = json.msg;
             }).catch(e => {
+                // ajax 통신이 실패했을때 실행될 코드
                 console.log(e);
                 alert(e.msg);
             })
