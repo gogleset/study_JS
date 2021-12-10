@@ -59,7 +59,6 @@ function ajaxHandlebar(params) {
     console.log(1);
     ajaxHelper({
       ...params,
-      
       success: (json) => {
         const html = document.querySelector(params.tmpl).innerHTML;
         const template = Handlebars.compile(html);
