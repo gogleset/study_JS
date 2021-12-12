@@ -71,11 +71,11 @@
                             console.log(resolve);
                             resolve(json);
                         } else {
-                            reject({status: ajax.status, text: ajax.statusText});
+                            reject({ status: ajax.status, text: ajax.statusText });
                         }
                     }
                 };
-               
+
                 xhr.send();
 
             });

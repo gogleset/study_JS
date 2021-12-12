@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .text-success{
-            color:#0066ff;
+        .text-success {
+            color: #0066ff;
             font-size: 24px;
         }
     </style>
 </head>
+
 <body>
     <h1>Simple Json</h1>
     <a href="#" id="btn">load hello.json</a>
@@ -19,7 +21,7 @@
 
     <script src="./ajaxPromiseHelper.js"></script>
     <script>
-        document.querySelector("#btn").addEventListener("click",e=>{
+        document.querySelector("#btn").addEventListener("click", e => {
             e.preventDefault();
 
             ajaxPromiseHelper("../23-XMLHttpRequest/backend/hello.json").then(json => {
@@ -34,4 +36,5 @@
         })
     </script>
 </body>
+
 </html>
