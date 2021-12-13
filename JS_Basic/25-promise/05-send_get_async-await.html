@@ -66,13 +66,12 @@
 
                 (async () => {
                     let json = null;
-
                     try {
                         json = await ajaxPromiseHelper("http://itpaper.co.kr/data/dept_item.php?deptno=" + deptno);
                     } catch (e) {
                         console.log(e);
                         alert(e.msg);
-                        return
+                        return;
                     }
 
                     document.querySelector(".deptno").innerHTML = json.deptno;

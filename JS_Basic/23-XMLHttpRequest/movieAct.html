@@ -36,7 +36,6 @@
             }
             // 출력
             console.log(query);
-
             ajaxhelper({
                 url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json?key=d145fd2512b2f9be50d440aedfa4b898&peopleNm=" + query,
                 success: (req) => {

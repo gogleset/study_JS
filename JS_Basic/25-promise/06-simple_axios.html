@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .text-success {
+            color: #0066ff;
+            font-size: 24px;
+        }
+
+        #loading {
+            width: 100px;
+            height: 100px;
+            background-image: url(loading.gif);
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: none;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -50px;
+            margin-top: -50px;
+            z-index: 10000;
+        }
+
+        #loading.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loading"></div>
+    <h1>Simple Json by Axiost Promise</h1>
+    <a href="#" id="btn">load json</a>
+    <div id="console"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.querySelector("#btn").addEventListener("click", e => {
+            e.preventDefault();
+
+            axios.get('backend/dept_item.json').then(({ data }) => {
+                console.log(data);
+                document.querySelector("#console").insertAdjacentHTML('beforeend',JSON.stringify(data));
+            })
+            .catch((error) => {
+               console.error(error);
+               console.error(error.response.status);
+               console.error(error.response.statusText);
+               console.error(error.response.data);
+            })
+            .finally(() => {
+                // 성공,실패 여부에 상관 없이 마지막 실행되는 함수
+                console.log('로딩완료...');
+                document.querySelector("#loading").classList.remove('active');
+            })
+        });
+    </script>
+</body>
+
+</html>
