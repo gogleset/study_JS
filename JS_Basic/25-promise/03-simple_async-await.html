@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .text-success {
+            color: #0066ff;
+            font-size: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Simple Json by Async-Await</h1>
+    <a href="#" id="btn">load hello.json</a>
+    <div id="console"></div>
+
+    <script src="./ajaxPromiseHelper.js"></script>
+    <script>
+        document.querySelector("#btn").addEventListener("click", e => {
+            e.preventDefault();
+
+            (async () => {
+                // try에서 성공 시 실행, 성공 실패여부는 try의 실행 여부에 따라 달라짐(try는 프로그램 부담이 크다)
+                try {
+                    console.log(1);
+                    const json = await ajaxPromiseHelper("../23-XMLHttpRequest/backend/hello.json");
+                    console.log(json);
+                    document.getElementById("console").innerHTML = json.msg;
+                // catch에서 실패 시 실행
+                } catch (e) {
+                    console.log(e);
+                    alert(e.msg);
+                }
+            })();
+        });
+    </script>
+</body>
+
+</html>
