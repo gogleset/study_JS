@@ -39,5 +39,3 @@ console.log(friends.id);
 
 friends.email = "fried@email.com";
 console.log(friends.email);
-
-// g

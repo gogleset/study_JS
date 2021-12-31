@@ -10,4 +10,4 @@ sayHello("안녕하세요 자바스크립트");
 const say = sayHello;
 
 // 함수가 대입된 변수는 그 자체가 함수의 역할을 한다
-say("Hello Javascript");
+say("Hello Javascript");    

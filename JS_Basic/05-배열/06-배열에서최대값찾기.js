@@ -12,8 +12,6 @@ let max = data[0];
 
 for (let i = 0; i < data.length; i++) {
     console.log("max=%d, data[%d]=%d",max, i, data[i]);
-
-
     // max가 data의 i번째보다 작다면 i번째 원소를 max값에 복사
     // 비교식의 부등호 방향만 반대로 지정한다면 최솟값을 구할 수 있다.
     if (max < data[i]){

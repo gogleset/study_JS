@@ -19,6 +19,7 @@ console.log(foo);
 const bar = new User();
 bar._id = "world";
 bar._email = "bar@javascript.com";
+bar._new = "new obj"
 console.log(bar);
 
 // 생성자 함수는 객체를 만들기 위한 함수, new 키워드를 써서 만들고, this를 통해 프로퍼티를 만든다.
